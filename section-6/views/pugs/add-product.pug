@@ -1,0 +1,9 @@
+extends layouts/main-layout.pug
+
+block metaData
+    title Add Product to Cart
+block navigationBar
+block content 
+    form(action="/product" method="POST")
+        input(type="text" name="productTitle")
+        button(type="submit") Add Product
