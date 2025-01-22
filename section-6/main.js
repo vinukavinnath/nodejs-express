@@ -7,7 +7,8 @@ const shopRoutes = require('./routes/shop');
 
 app = express();
 app.use(parser.urlencoded({ extended: false }));
-// Adding pug
+
+// Adding ejs
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
