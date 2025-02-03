@@ -1,10 +1,13 @@
 // const products = [];
+const { log } = require('console');
 const fs = require('fs');
 const path = require('path');
 
 module.exports = class Products {
-    constructor(productTitle) {
+    constructor(productTitle, productPrice, productDescription) {
         this.productTitle = productTitle;
+        this.productPrice = productPrice;
+        this.productDescription = productDescription;
     }
 
     save() {
@@ -21,6 +24,7 @@ module.exports = class Products {
             products.push(this);
 
             fs.writeFile(p, JSON.stringify(products), (err) => {
+                console.log(products);
                 
             });
         });
