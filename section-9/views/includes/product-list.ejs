@@ -20,7 +20,7 @@
                     </td>
                     <td>
                         <% if(isAdmin===true){%>
-                            <form action="/" method="POST">
+                            <form action="/products/<%=prod.id%>" method="POST">
                                 <button>Details</button>
                             </form>
                             <form action="/edit" method="POST">
@@ -31,12 +31,10 @@
                             </form>
 
                             <%} else {%>
-                                <form action="/" method="POST">
+                                <form action="/products/<%=prod.id%>" method="POST">
                                     <button>View</button>
                                 </form>
-                                <form action="/add-to-cart" method="POST">
-                                    <button>Add to Cart</button>
-                                </form>
+                                <%- include('../includes/add-to-cart',{product:prod}) %>
                                 <%}%>
                     </td>
                 </tr>

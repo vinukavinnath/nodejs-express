@@ -9,9 +9,17 @@ exports.getAllProducts = (req, res) => {
             isAdmin: false
         });
     });
-
 }
 
-
+exports.getProductById = (req, res) => {
+    const productId = req.params.productId;
+    Product.findById(productId, product => {
+        res.render('shop/product-details', {
+            product: product,
+            pageTitle: product.productTitle
+        });
+        console.log(product);
+    });
+}
 
 

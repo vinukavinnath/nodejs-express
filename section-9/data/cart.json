@@ -1,0 +1,20 @@
+{
+    "products": [
+        {
+            "id": "0f3869e4-273d-4b40-abd8-720b5a0b6aba",
+            "product": "Chocolate Puff",
+            "quantity": 2
+        },
+        {
+            "id": "8b14f9f7-9b20-45b6-af51-38499a602dc2",
+            "product": "Diva",
+            "quantity": 1
+        },
+        {
+            "id": "fa713d0c-194f-49f4-8947-9987b6b81884",
+            "product": "Hacks",
+            "quantity": 1
+        }
+    ],
+    "totalPrice": 693.5
+}
