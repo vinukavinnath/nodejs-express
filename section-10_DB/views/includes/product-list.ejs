@@ -10,13 +10,13 @@
             <%for(let prod of products){%>
                 <tr>
                     <td>
-                        <%=prod.productTitle%>
+                        <%=prod.title%>
                     </td>
                     <td>
-                        <%=prod.productPrice%>
+                        <%=prod.description%>
                     </td>
                     <td>
-                        <%=prod.productDescription%>
+                        <%=prod.price%>
                     </td>
                     <td>
                         <% if(isAdmin===true){%>
@@ -26,7 +26,7 @@
                             <form action="/edit" method="POST">
                                 <button>Edit</button>
                             </form>
-                            <form action="/delete" method="POST">
+                            <form action="/delete/<%=prod.id%>" method="POST">
                                 <button>Delete</button>
                             </form>
 

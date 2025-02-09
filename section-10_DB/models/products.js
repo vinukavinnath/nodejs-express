@@ -1,21 +1,5 @@
-// const products = [];
-const { log } = require('console');
-const fs = require('fs');
-const path = require('path');
+const db = require('../utils/database');
 const { v4: uuidv4 } = require('uuid');
-
-
-const getProductsFromFile = callback => {
-    const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
-
-    fs.readFile(p, (err, fileContent) => {
-        if (err)
-            callback([]);
-        else
-            callback(JSON.parse(fileContent));
-    });
-}
-
 
 module.exports = class Products {
     constructor(productTitle, productPrice, productDescription) {
@@ -25,36 +9,20 @@ module.exports = class Products {
     }
 
     save() {
-        // Commented for implementing save to local storage
-        // products.push(this);
-
-        const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
-
-        this.id = uuidv4();
-
-        fs.readFile(p, (err, fileContent) => {
-            let products = [];
-            if (!err) {
-                products = JSON.parse(fileContent);
-            }
-            products.push(this);
-
-            fs.writeFile(p, JSON.stringify(products), (err) => {
-                console.log(products);
-
-            });
-        });
-
+        return db.execute('INSERT INTO products(id, title, description, price)VALUES(?,?,?,?)',
+            [uuidv4(), this.productTitle, this.productDescription, this.productPrice]);
     }
 
-    static fetch(cb) {
-        getProductsFromFile(cb);
+    static fetchAll() {
+        return db.execute('SELECT * FROM products');
     }
 
-    static findById(id, cb) {
-        getProductsFromFile(products => {
-            const product = products.find(product => product.id === id);
-            cb(product);
-        });
-    };
+    static findById(id) {
+        return db.execute('SELECT * FROM products WHERE id=?', [id]);
+    }
+
+    static deleteById(id) {
+        return db.execute('DELETE FROM products WHERE id=?', [id]);
+    }
+
 }

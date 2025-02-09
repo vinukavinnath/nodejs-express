@@ -1,14 +1,14 @@
 const Product = require('../models/products');
 
 exports.getAdminPage = (req, res) => {
-    Product.fetch((products) => {
+
+    Product.fetchAll().then(([rows, fieldData]) =>
         res.render('admin/admin',
-            {
-                products: products,
-                pageTitle: "Admin", 
-                isAdmin: true
-            });
+            { products: rows, pageTitle: 'All Products', isAdmin: true })
+    ).catch(err => {
+        console.log(err);
     });
+
 }
 
 exports.getAddProductPage = (req, res) => {
@@ -20,7 +20,10 @@ exports.postProduct = (req, res) => {
     const price = req.body.productPrice;
     const description = req.body.productDescription;
     const products = new Product(title, price, description);
-    products.save();
-    res.redirect('/admin');
+    products.save()
+        .then(() => { res.redirect('/admin') })
+        .catch(err => console.log(err)
+        );
+
 
 }

@@ -2,7 +2,6 @@ const express = require('express');
 const parser = require('body-parser');
 const path = require('path');
 const pageNotFoundController = require('./controllers/not-found');
-const db = require('./utils/database');
 
 
 const adminRoutes = require('./routes/admin');
@@ -12,14 +11,6 @@ const productRoutes = require('./routes/products');
 app = express();
 app.use(parser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
-db.execute('SELECT * FROM books')
-    .then(result => {
-        console.log(result[0]);
-    })
-    .catch(err => {
-        console.log(err);
-    });
 
 // Adding ejs
 app.set('view engine', 'ejs');
