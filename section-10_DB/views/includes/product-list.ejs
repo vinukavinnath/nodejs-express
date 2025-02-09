@@ -1,0 +1,47 @@
+<table>
+    <thead>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        <% if(products.length>0) {%>
+            <%for(let prod of products){%>
+                <tr>
+                    <td>
+                        <%=prod.productTitle%>
+                    </td>
+                    <td>
+                        <%=prod.productPrice%>
+                    </td>
+                    <td>
+                        <%=prod.productDescription%>
+                    </td>
+                    <td>
+                        <% if(isAdmin===true){%>
+                            <form action="/products/<%=prod.id%>" method="POST">
+                                <button>Details</button>
+                            </form>
+                            <form action="/edit" method="POST">
+                                <button>Edit</button>
+                            </form>
+                            <form action="/delete" method="POST">
+                                <button>Delete</button>
+                            </form>
+
+                            <%} else {%>
+                                <form action="/products/<%=prod.id%>" method="POST">
+                                    <button>View</button>
+                                </form>
+                                <%- include('../includes/add-to-cart',{product:prod}) %>
+                                <%}%>
+                    </td>
+                </tr>
+                <%}%>
+                    <%} else {%>
+                        <h3>No Products Found!</h3>
+                        <% }%>
+
+    </tbody>
+</table>
