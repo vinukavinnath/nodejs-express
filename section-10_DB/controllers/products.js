@@ -2,12 +2,16 @@ const Product = require('../models/products');
 
 
 exports.getAllProducts = (req, res) => {
-    Product.fetchAll().then(([rows, fieldData]) =>
-        res.render('shop/all-products',
-            { products: rows, isAdmin: false, pageTitle: 'All Products' })
-    ).catch(err => {
-        console.log(err);
-    });
+
+    Product.findAll()
+        .then(products => {
+            console.log("--------------Logging Products----------------------");
+
+            console.log(products);
+            res.render('shop/all-products',
+                { products: products, isAdmin: false, pageTitle: 'All Products' });
+        })
+        .catch(err => console.log(err));
 }
 
 exports.getProductById = (req, res) => {
