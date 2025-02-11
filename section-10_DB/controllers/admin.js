@@ -1,4 +1,5 @@
 const Product = require('../models/products');
+const { v4: uuidv4 } = require('uuid');
 
 exports.getAdminPage = (req, res) => {
 
@@ -19,11 +20,16 @@ exports.postProduct = (req, res) => {
     const title = req.body.productTitle;
     const price = req.body.productPrice;
     const description = req.body.productDescription;
-    const products = new Product(title, price, description);
-    products.save()
-        .then(() => { res.redirect('/admin') })
-        .catch(err => console.log(err)
-        );
 
+    Product.create({
+        id: uuidv4(),
+        title: title,
+        description: description,
+        price: price
+    })
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
+
+    res.redirect('/');
 
 }

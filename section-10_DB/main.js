@@ -2,6 +2,7 @@ const express = require('express');
 const parser = require('body-parser');
 const path = require('path');
 const pageNotFoundController = require('./controllers/not-found');
+const sequelize = require('./utils/database');
 
 
 const adminRoutes = require('./routes/admin');
@@ -24,4 +25,11 @@ app.use(productRoutes);
 // Handling page not found
 app.use(pageNotFoundController.pageNotFound);
 
-app.listen('3000');
+sequelize.sync()
+    .then(result => {
+        console.log(result);
+        app.listen(3000);
+    })
+    .catch((err) => console.log(err));
+
+app.listen('5000');
