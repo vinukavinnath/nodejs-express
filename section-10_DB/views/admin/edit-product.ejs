@@ -1,0 +1,29 @@
+<%- include('../includes/head.ejs') %>
+
+    <body>
+        <%- include('../includes/navigation-admin.ejs') %>
+
+            <main>
+                <form action="/edit/<%=product.id%>" method="POST">
+
+                    <div>
+                        <label for="title">Product Title</label>
+                        <input type="text" name="productTitle" id="title" value="<%=product.title%>" required>
+                    </div>
+                    <div>
+                        <label for="price">Price</label>
+                        <input type="text" name="productPrice" id="price" value="<%=product.price%>" required>
+                    </div>
+                    <div>
+                        <label for="description">Product Description</label>
+                        <textarea name="productDescription" id="description" rows="4"><%= product.description %></textarea>
+
+                    </div>
+
+                    <button type="Submit">Save Changes</button>
+                </form>
+            </main>
+
+    </body>
+
+    </html>

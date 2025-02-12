@@ -23,7 +23,7 @@
                             <form action="/products/<%=prod.id%>" method="POST">
                                 <button>Details</button>
                             </form>
-                            <form action="/edit" method="POST">
+                            <form action="/edit/<%=prod.id%>" method="GET">
                                 <button>Edit</button>
                             </form>
                             <form action="/delete/<%=prod.id%>" method="POST">
