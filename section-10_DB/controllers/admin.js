@@ -26,7 +26,7 @@ exports.postProduct = (req, res) => {
     const price = req.body.productPrice;
     const description = req.body.productDescription;
 
-    Product.create({
+    req.user.createProduct({
         id: uuidv4(),
         title: title,
         description: description,
@@ -37,5 +37,4 @@ exports.postProduct = (req, res) => {
             res.redirect('/admin');
         })
         .catch(err => console.log(err));
-
 }
