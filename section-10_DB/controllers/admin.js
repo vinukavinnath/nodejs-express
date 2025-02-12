@@ -32,7 +32,10 @@ exports.postProduct = (req, res) => {
         description: description,
         price: price
     })
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result);
+            res.redirect('/admin');
+        })
         .catch(err => console.log(err));
 
 }

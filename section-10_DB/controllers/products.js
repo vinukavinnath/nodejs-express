@@ -93,12 +93,11 @@ exports.postEditedProduct = (req, res) => {
 
 exports.deleteProductById = (req, res) => {
     const productId = req.params.productId;
-    Product.deleteById(productId)
-        .then(([resultHeader]) => {
-            console.log(resultHeader.affectedRows, "products Deleted!");
+
+    Product.destroy({ where: { id: productId } })
+        .then((result) => {
+            console.log(`--------${result} RECORDS DELETED--------`);
             res.redirect('/admin');
         })
-        .catch(err => console.log(err)
-        );
+        .catch(err => console.log(err));
 }
-
