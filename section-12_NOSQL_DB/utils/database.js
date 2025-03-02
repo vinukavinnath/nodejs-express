@@ -1,9 +1,29 @@
-const Sequelize = require('sequelize');
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
-// Create sequelize instance
-// DB_name, username, password
-const sequelize = new Sequelize('new_groceries', 'root', 'RootPassword@123',
-    { dialect: 'mysql', host: 'localhost' }
-);
+let _db;
 
-module.exports = sequelize;
+const databaseConnection = (callback) => {
+    MongoClient.connect('mongodb+srv://vinnathwlv:Hy0yGZkPU5II4iXY@database.qanmt.mongodb.net/?retryWrites=true&w=majority&appName=database')
+        .then((client) => {
+            console.log('--- CONNECTED TO DATABASE ---');
+            _db = client.db();
+            callback();
+        })
+        .catch(err => {
+            console.log(err);
+            throw err;
+        });
+}
+
+const getDB = () => {
+    if (_db)
+        return _db;
+    else
+        throw '--- NO DATABASE ---';
+}
+
+module.exports = {
+    dbConn: databaseConnection,
+    db: getDB
+};

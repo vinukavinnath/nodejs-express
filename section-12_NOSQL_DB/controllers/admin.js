@@ -33,30 +33,10 @@ exports.postProduct = (req, res) => {
     const price = req.body.productPrice;
     const description = req.body.productDescription;
 
-    req.user.createProduct({
-        id: uuidv4(),
-        title: title,
-        description: description,
-        price: price
-    })
-
-        /*
-        Or we can continue with as follows for creating a product associated to a user
-    
-        Product.create({
-            id,
-            title,
-            description,
-            price,
-            userUid: user.id
+    const product = new Product(title, price, description);
+    product.save()
+        .catch(err => {
+            console.log(err);
         });
-    
-        But this method is not OK. Previous one,  using magic methods is popular.
-    
-        */
-        .then(result => {
-            console.log(result);
-            res.redirect('/admin');
-        })
-        .catch(err => console.log(err));
+
 }
