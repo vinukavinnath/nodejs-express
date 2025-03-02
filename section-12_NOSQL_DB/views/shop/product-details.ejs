@@ -1,0 +1,21 @@
+<%- include('../includes/head.ejs') %>
+
+    <body>
+        <%- include('../includes/navigation.ejs')%>
+            <main>
+                <h1>
+                    <%=product.title%>
+                </h1>
+                <p>
+                    <%=product.description%>
+                </p>
+                <h4>
+                    Rs.<%=product.price%>/= only
+                </h4>
+                
+                <%- include('../includes/add-to-cart') %>
+
+            </main>
+    </body>
+
+    </html>

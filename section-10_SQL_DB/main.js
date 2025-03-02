@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-// Sending user details with each request
+// Setting a middleware to send user details with each request
 app.use((req, res, next) => {
     return User.findByPk('1')
         .then(user => {

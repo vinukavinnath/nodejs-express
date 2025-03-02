@@ -3,6 +3,9 @@ const Product = require('../models/products');
 
 
 exports.getAllProducts = (req, res) => {
+    
+// Special Function made by sequelize as a result of Association
+// req.user.getProducts()
 
     Product.findAll()
         .then(products => {
