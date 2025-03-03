@@ -6,7 +6,11 @@ exports.getAdminPage = (req, res) => {
     req.user.getProducts()
         .then(products => {
             res.render('admin/admin',
-                { products: products, isAdmin: true, pageTitle: 'All Products' });
+                {
+                    products: products,
+                    isAdmin: true,
+                    pageTitle: 'All Products'
+                });
         })
         .catch(err => console.log(err));
 

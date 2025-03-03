@@ -6,8 +6,8 @@ const { dbConn: databaseConnection } = require('./utils/database');
 
 
 const adminRoutes = require('./routes/admin');
-// const shopRoutes = require('./routes/shop');
-// const productRoutes = require('./routes/products');
+const shopRoutes = require('./routes/shop');
+const productRoutes = require('./routes/products');
 
 
 app = express();
@@ -31,9 +31,9 @@ app.set('views', 'views');
 // });
 
 // Adding routes
-// app.use(shopRoutes);
+app.use(shopRoutes);
+app.use(productRoutes);
 app.use(adminRoutes);
-// app.use(productRoutes);
 
 
 // Handling page not found

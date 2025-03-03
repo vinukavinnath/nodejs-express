@@ -7,7 +7,6 @@ class Product {
             this.description = description
     }
 
-
     save() {
         const db = getDB();
         db.collection('products')
@@ -19,6 +18,17 @@ class Product {
             .catch(err => {
                 console.log(err);
             });
+    }
+
+    static fetchAll() {
+        const db = getDB();
+        return db.collection('products')
+            .find({})
+            .toArray()
+            .catch(err => {
+                console.log(err);
+            });
+
     }
 }
 

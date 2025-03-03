@@ -1,24 +1,20 @@
-const { where } = require('sequelize');
 const Product = require('../models/products');
 
 
 exports.getAllProducts = (req, res) => {
-    
-// Special Function made by sequelize as a result of Association
-// req.user.getProducts()
-
-    Product.findAll()
+    Product.fetchAll()
         .then(products => {
-            console.log("--------------Logging Products----------------------");
-
-            // In products array there is Product>dataValues
-            // But sequelize offers dataValues at Top Level
-            // No need to access product details by <h2><%= product.Product.dataValues.id %></h2>
-            console.log(products);
+            console.log(`--- ${products.length} PRODUCTS FETCHED ---`);
             res.render('shop/all-products',
-                { products: products, isAdmin: false, pageTitle: 'All Products' });
+                {
+                    products: products,
+                    pageTitle: "All Products",
+                    isAdmin: false
+                }
+            )
         })
         .catch(err => console.log(err));
+
 }
 
 exports.getProductById = (req, res) => {

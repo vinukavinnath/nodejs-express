@@ -4,7 +4,7 @@ const MongoClient = mongodb.MongoClient;
 let _db;
 
 const databaseConnection = (callback) => {
-    MongoClient.connect('mongodb+srv://vinnathwlv:Hy0yGZkPU5II4iXY@database.qanmt.mongodb.net/?retryWrites=true&w=majority&appName=database')
+    MongoClient.connect('mongodb+srv://vinnathwlv:Hy0yGZkPU5II4iXY@database.qanmt.mongodb.net/shop?retryWrites=true&w=majority&appName=database')
         .then((client) => {
             console.log('--- CONNECTED TO DATABASE ---');
             _db = client.db();
@@ -20,7 +20,7 @@ const getDB = () => {
     if (_db)
         return _db;
     else
-        throw '--- NO DATABASE ---';
+        throw new Error('--- NO DATABASE ---');
 }
 
 module.exports = {
