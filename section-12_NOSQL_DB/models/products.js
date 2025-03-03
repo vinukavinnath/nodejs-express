@@ -11,12 +11,8 @@ class Product {
 
     save() {
         const db = getDB();
-        db.collection('products')
+        return db.collection('products')
             .insertOne(this)
-            .then(result => {
-                if (result.acknowledged)
-                    console.log(`--- PRODUCT ADDED --- \n INSERT ID : ${result.insertedId}`);
-            })
             .catch(err => {
                 console.log(err);
             });
@@ -40,6 +36,19 @@ class Product {
             .catch(err => {
                 console.log(err);
             });
+    }
+
+    static updateById(productId, updatedValues) {
+        const db = getDB();
+        return db.collection('products')
+            .updateOne(
+                { _id: ObjectId.createFromHexString(productId) },
+                {
+                    $set: updatedValues
+                }
+            )
+            .catch(err => console.log(err)
+            )
     }
 }
 

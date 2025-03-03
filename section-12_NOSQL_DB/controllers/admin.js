@@ -3,33 +3,24 @@ const { v4: uuidv4 } = require('uuid');
 
 exports.getAdminPage = (req, res) => {
 
-    req.user.getProducts()
+    Product.fetchAll()
         .then(products => {
+            console.log(`--- ${products.length} PRODUCTS FETCHED ---`);
             res.render('admin/admin',
                 {
                     products: products,
-                    isAdmin: true,
-                    pageTitle: 'All Products'
-                });
+                    pageTitle: "All Products",
+                    isAdmin: true
+                }
+            )
         })
         .catch(err => console.log(err));
-
-    // Product.findAll()
-    //     .then(products => {
-    //         console.log("--------------Logging Products----------------------");
-
-    //         // In products array there is Product>dataValues
-    //         // But sequelize offers dataValues at Top Level
-    //         // No need to access product details by <h2><%= product.Product.dataValues.id %></h2>
-    //         console.log(products);
-    //         res.render('admin/admin',
-    //             { products: products, isAdmin: true, pageTitle: 'All Products' });
-    //     })
-    //     .catch(err => console.log(err));
 }
 
 exports.getAddProductPage = (req, res) => {
-    res.render('admin/add-product', { pageTitle: "Add a product to Inventry" });
+    res.render('admin/add-product',
+        { pageTitle: "Add a product to Inventry" }
+    );
 }
 
 exports.postProduct = (req, res) => {
@@ -39,6 +30,11 @@ exports.postProduct = (req, res) => {
 
     const product = new Product(title, price, description);
     product.save()
+        .then(result => {
+            if (result.acknowledged)
+                console.log(`--- PRODUCT ADDED --- \n INSERT ID : ${result.insertedId}`);
+            res.redirect('/admin');
+        })
         .catch(err => {
             console.log(err);
         });
