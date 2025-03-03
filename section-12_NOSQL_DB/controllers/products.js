@@ -18,38 +18,27 @@ exports.getAllProducts = (req, res) => {
 }
 
 exports.getProductById = (req, res) => {
+
     const productId = req.params.productId;
-
-    // Using findAll()
-    Product.findAll(
-        {
-            where: {
-                id: productId
+    Product.fetchById(productId)
+        .then(product => {
+            if (!product) {
+                console.log(`Product with ID ${productId} not found.`);
+                return res.status(404)
+                    .render('404',
+                        {
+                            pageTitle: 'Product Not Found'
+                        });
+            } else {
+                console.log(`--- PRODUCT DETAILS FETCHED ---\n  NAME: ${product.title}`);
+                res.render('shop/product-details', {
+                    product: product,
+                    pageTitle: product.title
+                })
             }
-        }
+        })
+        .catch(err => console.log(err));
 
-        // Returns array of products even if there is only one product matches the query
-    ).then(([product]) => {
-        console.log(product);
-
-        res.render('shop/product-details', {
-            product: product,
-            pageTitle: product.title
-        });
-    })
-        .catch(err => { console.log(err) });
-
-    // Using findByPk()
-    // Product.findByPk(productId)
-    //     .then((product) => {
-    //         console.log(product);
-
-    //         res.render('shop/product-details', {
-    //             product: product,
-    //             pageTitle: product.title
-    //         });
-    //     })
-    //     .catch(err => { console.log(err) });
 }
 
 exports.getEditProductsPage = (req, res) => {

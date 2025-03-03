@@ -20,18 +20,18 @@
                     </td>
                     <td>
                         <% if(isAdmin===true){%>
-                            <form action="/products/<%=prod.id%>" method="POST">
+                            <form action="/products/<%=prod._id%>" method="POST">
                                 <button>Details</button>
                             </form>
-                            <form action="/edit/<%=prod.id%>" method="GET">
+                            <form action="/edit/<%=prod._id%>" method="GET">
                                 <button>Edit</button>
                             </form>
-                            <form action="/delete/<%=prod.id%>" method="POST">
+                            <form action="/delete/<%=prod._id%>" method="POST">
                                 <button>Delete</button>
                             </form>
 
                             <%} else {%>
-                                <form action="/products/<%=prod.id%>" method="POST">
+                                <form action="/products/<%=prod._id%>" method="POST">
                                     <button>View</button>
                                 </form>
                                 <%- include('../includes/add-to-cart',{product:prod}) %>
