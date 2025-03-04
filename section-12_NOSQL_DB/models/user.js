@@ -1,21 +1,25 @@
-const sequelize = require('../utils/database');
-const { DataTypes } = require('sequelize');
+const { db: getDB } = require('../utils/database');
 
-// Defines user model
-const User = sequelize.define('user', {
-    uId: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false
+class User {
+    constructor(userId, username, email) {
+        this.userId=userId;
+        this.username = username;
+        this.email = email;
     }
-}, { tableName: 'users' });
+
+    save() {
+        const db = getDB();
+        return db.collection('users')
+            .insertOne(this)
+            .catch(err => console.log(err))
+    }
+
+    static findUserByUsername(username) {
+        const db = getDB();
+        return db.collection('users')
+            .findOne({ username: username })
+            .catch(err => console.log(err))
+    }
+}
 
 module.exports = User;

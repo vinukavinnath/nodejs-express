@@ -27,8 +27,9 @@ exports.postProduct = (req, res) => {
     const title = req.body.productTitle;
     const price = req.body.productPrice;
     const description = req.body.productDescription;
+    const userId = req.user.userId;
 
-    const product = new Product(title, price, description);
+    const product = new Product(title, price, description, userId);
     product.save()
         .then(result => {
             if (result.acknowledged)
