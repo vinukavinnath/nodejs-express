@@ -85,10 +85,12 @@ exports.postEditedProduct = (req, res) => {
 exports.deleteProductById = (req, res) => {
     const productId = req.params.productId;
 
-    Product.destroy({ where: { id: productId } })
-        .then((result) => {
-            console.log(`--------${result} RECORDS DELETED--------`);
+    Product.deleteById(productId)
+        .then(result => {
+            if (result.acknowledged)
+                console.log(`--- ${result.deletedCount} ITEMS DELETED ---`);
             res.redirect('/admin');
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err)
+        )
 }
